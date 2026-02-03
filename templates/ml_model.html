@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="header-title">Train a Machine Learning Model</h1>
+    <p class="header-subtitle">Watch a real ML model learn in real-time - see loss decrease with each iteration!</p>
+</div>
+
+<div class="glass-card" style="background: rgba(6, 182, 212, 0.05); border-left: 4px solid var(--accent);">
+    <h3>⚡ You're Training AI!</h3>
+    <p style="color: var(--text-muted); line-height: 1.6;">
+        This module trains a real linear regression model using gradient descent. Watch the loss decrease 
+        as the model learns to fit the data. This is the same process used in training neural networks!
+    </p>
+</div>
+
+<div class="glass-card">
+    <div class="control-panel" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="input-group">
+            <h3>Dataset Type</h3>
+            <select id="datasetType" class="input-field">
+                <option value="linear">Linear Relationship</option>
+                <option value="quadratic">Quadratic Curve</option>
+                <option value="sine">Sine Wave</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <h3>Number of Samples</h3>
+            <input type="number" id="nSamples" value="100" min="50" max="300" class="input-field">
+        </div>
+
+        <div class="input-group">
+            <h3>Noise Level</h3>
+            <input type="range" id="noise" min="1" max="30" value="10" class="input-field">
+            <div style="text-align: center; margin-top: 0.5rem; color: var(--primary);">
+                <span id="noiseValue">10</span>
+            </div>
+        </div>
+
+        <div class="input-group" style="display: flex; align-items: flex-end;">
+            <button class="btn-primary" onclick="generateDataset()" style="width: 100%;">
+                Generate Dataset
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <div style="display: flex; gap: 1rem;">
+        <button class="btn-primary" onclick="trainModel()" style="flex: 1;">
+            Train Model (Instant)
+        </button>
+        <button class="btn-primary" onclick="trainIterative()" style="flex: 1; background: var(--secondary);">
+            Train with Animation
+        </button>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Training Data & Model Fit</h3>
+    <div id="dataPlot" class="viz-container" style="height: 500px;"></div>
+</div>
+
+<div class="glass-card">
+    <h3>Loss Curve (Training Progress)</h3>
+    <div id="lossPlot" class="viz-container" style="height: 300px;"></div>
+</div>
+
+<div class="glass-card">
+    <h3>Model Performance</h3>
+    <div id="metrics" style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div style="padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Train R² Score</div>
+            <div id="trainR2" style="font-size: 1.5rem; color: var(--primary); margin-top: 0.5rem;">-</div>
+        </div>
+        <div style="padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Test R² Score</div>
+            <div id="testR2" style="font-size: 1.5rem; color: var(--primary); margin-top: 0.5rem;">-</div>
+        </div>
+        <div style="padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Train MSE</div>
+            <div id="trainMSE" style="font-size: 1.5rem; color: var(--primary); margin-top: 0.5rem;">-</div>
+        </div>
+        <div style="padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Test MSE</div>
+            <div id="testMSE" style="font-size: 1.5rem; color: var(--primary); margin-top: 0.5rem;">-</div>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Understanding Model Training</h3>
+    <div style="margin-top: 1rem; line-height: 1.8; color: var(--text-muted);">
+        <p><strong style="color: var(--text-main);">Loss Function:</strong> Measures how wrong the model's predictions are (Mean Squared Error)</p>
+        <p><strong style="color: var(--text-main);">Training:</strong> Adjusting model parameters to minimize loss using gradient descent</p>
+        <p><strong style="color: var(--text-main);">R² Score:</strong> How well the model fits the data (1.0 = perfect fit, 0.0 = no better than average)</p>
+        <p><strong style="color: var(--text-main);">Train vs Test:</strong> Test performance shows how well the model generalizes to new data</p>
+        <p><strong style="color: var(--text-main);">Overfitting:</strong> When train score >> test score (model memorized training data)</p>
+        <p><strong style="color: var(--text-main);">In Deep Learning:</strong> Same principles, but with millions of parameters!</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/visualizers/ml.js') }}"></script>
+{% endblock %}

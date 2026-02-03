@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathAI - Interactive Foundations</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>MathAI<span class="dot">.</span></h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}" class="nav-item {% if request.endpoint == 'index' %}active{% endif %}">
+                    <span class="icon">🏠</span> Dashboard
+                </a></li>
+                
+                <li class="nav-section">📐 Linear Algebra</li>
+                <li><a href="{{ url_for('vectors') }}" class="nav-item {% if request.endpoint == 'vectors' %}active{% endif %}">
+                    <span class="icon">↗️</span> Vectors
+                </a></li>
+                <li><a href="{{ url_for('matrices') }}" class="nav-item {% if request.endpoint == 'matrices' %}active{% endif %}">
+                    <span class="icon">▦</span> Matrices
+                </a></li>
+                <li><a href="{{ url_for('transformations') }}" class="nav-item {% if request.endpoint == 'transformations' %}active{% endif %}">
+                    <span class="icon">🔄</span> Transformations
+                </a></li>
+                <li><a href="{{ url_for('systems') }}" class="nav-item {% if request.endpoint == 'systems' %}active{% endif %}">
+                    <span class="icon">🟰</span> Systems
+                </a></li>
+                <li><a href="{{ url_for('eigen') }}" class="nav-item {% if request.endpoint == 'eigen' %}active{% endif %}">
+                    <span class="icon">🌀</span> Eigenvalues
+                </a></li>
+                
+                <li class="nav-section">🤖 AI Foundations</li>
+                <li><a href="{{ url_for('gradient') }}" class="nav-item {% if request.endpoint == 'gradient' %}active{% endif %}">
+                    <span class="icon">📉</span> Gradient Descent
+                </a></li>
+                <li><a href="{{ url_for('neural') }}" class="nav-item {% if request.endpoint == 'neural' %}active{% endif %}">
+                    <span class="icon">🧠</span> Neural Networks
+                </a></li>
+                <li><a href="{{ url_for('pca') }}" class="nav-item {% if request.endpoint == 'pca' %}active{% endif %}">
+                    <span class="icon">📊</span> PCA
+                </a></li>
+                
+                <li class="nav-section">🧠 Machine Learning</li>
+                <li><a href="{{ url_for('feature_space') }}" class="nav-item {% if request.endpoint == 'feature_space' %}active{% endif %}">
+                    <span class="icon">🎯</span> Feature Space
+                </a></li>
+                <li><a href="{{ url_for('convolution') }}" class="nav-item {% if request.endpoint == 'convolution' %}active{% endif %}">
+                    <span class="icon">🖼️</span> Convolution
+                </a></li>
+                <li><a href="{{ url_for('ml_model') }}" class="nav-item {% if request.endpoint == 'ml_model' %}active{% endif %}">
+                    <span class="icon">⚡</span> Train Model
+                </a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

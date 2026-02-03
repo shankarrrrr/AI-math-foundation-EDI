@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="header-title">Vector Spaces & Operations</h1>
+    <p class="header-subtitle">Visualize 2D and 3D vectors, dot products, and projections.</p>
+</div>
+
+<div class="glass-card">
+    <div class="control-panel">
+        <!-- Vector A Input -->
+        <div class="input-group">
+            <h3>Vector A</h3>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                <input type="number" id="ax" value="3" class="input-field" placeholder="X">
+                <input type="number" id="ay" value="2" class="input-field" placeholder="Y">
+                <input type="number" id="az" value="0" class="input-field" placeholder="Z">
+            </div>
+        </div>
+
+        <!-- Vector B Input -->
+        <div class="input-group">
+            <h3>Vector B</h3>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                <input type="number" id="bx" value="1" class="input-field" placeholder="X">
+                <input type="number" id="by" value="4" class="input-field" placeholder="Y">
+                <input type="number" id="bz" value="0" class="input-field" placeholder="Z">
+            </div>
+        </div>
+
+        <div class="actions" style="display: flex; align-items: flex-end;">
+            <button class="btn-primary" onclick="updateVectors()">Calculate & Visualize</button>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <div id="vectorPlot" class="viz-container"></div>
+</div>
+
+<div class="glass-card">
+    <h3>Mathematical Analysis</h3>
+    <div id="math-output" style="margin-top: 1rem; line-height: 1.6;">
+        <p>Enter vectors to see analysis...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/visualizers/vectors.js') }}"></script>
+{% endblock %}

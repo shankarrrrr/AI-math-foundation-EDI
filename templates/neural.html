@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="header-title">Neural Network Visualizer</h1>
+    <p class="header-subtitle">See how data flows through layers - it's just matrix multiplication + activation!</p>
+</div>
+
+<div class="glass-card" style="background: rgba(139, 92, 246, 0.05); border-left: 4px solid var(--secondary);">
+    <h3>🧠 Deep Learning Demystified</h3>
+    <p style="color: var(--text-muted); line-height: 1.6;">
+        Neural networks are simply stacked matrix multiplications with non-linear activation functions. 
+        This visualizer shows a tiny network (2→3→1) to illustrate the core concept that powers all deep learning.
+    </p>
+</div>
+
+<div class="glass-card">
+    <div class="control-panel" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="input-group">
+            <h3>Input Values</h3>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                <input type="number" id="input1" value="1.0" step="0.1" class="input-field" placeholder="x₁">
+                <input type="number" id="input2" value="0.5" step="0.1" class="input-field" placeholder="x₂">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <h3>Activation Function</h3>
+            <select id="activation" class="input-field">
+                <option value="relu">ReLU (max(0, x))</option>
+                <option value="sigmoid">Sigmoid (1/(1+e^-x))</option>
+                <option value="tanh">Tanh</option>
+            </select>
+        </div>
+
+        <div class="input-group" style="display: flex; align-items: flex-end;">
+            <button class="btn-primary" onclick="runForwardPass()" style="width: 100%;">
+                Forward Pass
+            </button>
+        </div>
+    </div>
+
+    <div style="margin-top: 1rem;">
+        <button class="btn-primary" onclick="randomizeWeights()" style="background: var(--accent);">
+            🎲 Randomize Weights
+        </button>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Network Architecture: 2 → 3 → 1</h3>
+    <div id="networkViz" style="margin-top: 1.5rem; min-height: 400px;">
+        <!-- Network visualization will be drawn here -->
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Layer Computations</h3>
+    <div id="computations" style="margin-top: 1rem;">
+        <p style="color: var(--text-muted);">Run forward pass to see computations...</p>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Understanding Neural Networks</h3>
+    <div style="margin-top: 1rem; line-height: 1.8; color: var(--text-muted);">
+        <p><strong style="color: var(--text-main);">Layer 1 (Input → Hidden):</strong> h = activation(W₁ × input + b₁)</p>
+        <p><strong style="color: var(--text-main);">Layer 2 (Hidden → Output):</strong> output = W₂ × h + b₂</p>
+        <p><strong style="color: var(--text-main);">Weights (W):</strong> Learned parameters that transform inputs</p>
+        <p><strong style="color: var(--text-main);">Biases (b):</strong> Shift the activation function</p>
+        <p><strong style="color: var(--text-main);">Activation:</strong> Introduces non-linearity (enables learning complex patterns)</p>
+        <p><strong style="color: var(--text-main);">In Real Networks:</strong> Same concept, but with millions of neurons and parameters!</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/visualizers/neural.js') }}"></script>
+{% endblock %}

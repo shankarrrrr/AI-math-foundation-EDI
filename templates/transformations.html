@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="header-title">Linear Transformations</h1>
+    <p class="header-subtitle">Visualize how matrices transform 2D space: Rotation, Scaling, Shear.</p>
+</div>
+
+<div class="glass-card">
+    <div class="control-panel" style="grid-template-columns: 1fr 2fr;">
+        <!-- Controls -->
+        <div>
+            <h3>Transformation Matrix</h3>
+            <div class="matrix-grid" id="transMatrix"
+                style="grid-template-columns: 1fr 1fr; width: 150px; margin-bottom: 1rem;">
+                <input type="number" id="t00" value="1" class="matrix-cell">
+                <input type="number" id="t01" value="0" class="matrix-cell">
+                <input type="number" id="t10" value="0" class="matrix-cell">
+                <input type="number" id="t11" value="1" class="matrix-cell">
+            </div>
+
+            <h3>Presets</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <button class="btn-primary" onclick="setPreset('identity')">Identity</button>
+                <button class="btn-primary" onclick="setPreset('rotate')">Rotate 45°</button>
+                <button class="btn-primary" onclick="setPreset('scale')">Scale (2x, 0.5y)</button>
+                <button class="btn-primary" onclick="setPreset('shear')">Shear X</button>
+                <button class="btn-primary" onclick="setPreset('reflect')">Reflection (Y-axis)</button>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <label>Shape:</label>
+                <select id="shapeSelect" class="input-field" onchange="updateTransform()">
+                    <option value="square">Unit Square</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="grid">Grid</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1rem; width: 100%; background: var(--secondary);"
+                onclick="updateTransform()">Apply Transformation</button>
+        </div>
+
+        <!-- Visualization -->
+        <div>
+            <div id="transformPlot" class="viz-container" style="height: 600px;"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .matrix-cell {
+        width: 60px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/visualizers/transforms.js') }}"></script>
+{% endblock %}

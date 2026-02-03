@@ -1,0 +1,8 @@
+Flask==3.0.0
+numpy==1.24.3
+scikit-learn==1.3.2
+scipy==1.11.4
+gunicorn==21.2.0
+pyngrok==7.0.1
+Pillow==10.1.0
+pandas==2.1.3

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="header-title">Eigenvalues & Eigenvectors</h1>
+    <p class="header-subtitle">Visualize invariant directions. Vectors that stay on their span only get scaled.</p>
+</div>
+
+<div class="glass-card">
+    <div style="display: flex; gap: 2rem;">
+        <div style="width: 200px;">
+            <h3>Matrix A</h3>
+            <div class="matrix-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
+                <input type="number" id="e00" value="2" class="matrix-cell">
+                <input type="number" id="e01" value="0" class="matrix-cell">
+                <input type="number" id="e10" value="0" class="matrix-cell">
+                <input type="number" id="e11" value="3" class="matrix-cell">
+            </div>
+
+            <button class="btn-primary" style="width: 100%; margin-bottom: 1rem;"
+                onclick="updateEigen()">Visualize</button>
+
+            <h3>Presets</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <button class="btn-primary" onclick="setEigenPreset('scale')">Scaling (Diagonal)</button>
+                <button class="btn-primary" onclick="setEigenPreset('shear')">Shear</button>
+            </div>
+        </div>
+
+        <div style="flex: 1;">
+            <div id="eigenMath"
+                style="margin-bottom: 1rem; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                <!-- Math Output -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <div id="eigenPlot" class="viz-container" style="height: 600px;"></div>
+</div>
+
+<style>
+    .matrix-cell {
+        width: 70px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/visualizers/eigen.js') }}"></script>
+{% endblock %}

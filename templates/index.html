@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section" style="text-align: center; margin-top: 2rem;">
+    <h1 class="header-title" style="font-size: 3.5rem;">AI Math Foundations</h1>
+    <p class="header-subtitle">Interactive Visual Learning Platform: Linear Algebra → AI Math → Machine Learning</p>
+</div>
+
+<div style="margin: 2rem 0; text-align: center;">
+    <p style="color: var(--text-muted); font-size: 1.1rem;">
+        Explore 11 interactive modules that connect mathematical concepts to real AI applications
+    </p>
+</div>
+
+<!-- Linear Algebra Section -->
+<div style="margin-top: 3rem;">
+    <h2 style="color: var(--primary); margin-bottom: 1rem;">📐 Linear Algebra Foundations</h2>
+    <div class="control-panel" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <a href="{{ url_for('vectors') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">↗️</div>
+                <h3>Vector Spaces</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Magnitude, direction, dot products, and projections in 3D space.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    💡 AI Connection: Word embeddings in NLP
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('matrices') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">▦</div>
+                <h3>Matrix Operations</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Multiplication, inverse, determinants, and rank analysis.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    💡 AI Connection: Neural network weights
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('transformations') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔄</div>
+                <h3>Linear Transformations</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    See how matrices warp space: rotation, scaling, shear.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    💡 AI Connection: Data augmentation
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('systems') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🟰</div>
+                <h3>Systems of Equations</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Gaussian elimination and intersection of planes.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    💡 AI Connection: Solving for optimal weights
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('eigen') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🌀</div>
+                <h3>Eigenvalues & Eigenvectors</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Vectors that stay on their span during transformation.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    💡 AI Connection: PCA uses eigenvalues
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- AI Foundations Section -->
+<div style="margin-top: 3rem;">
+    <h2 style="color: var(--secondary); margin-bottom: 1rem;">🤖 AI Foundations</h2>
+    <div class="control-panel" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <a href="{{ url_for('gradient') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📉</div>
+                <h3>Gradient Descent</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Watch optimization in action - how AI learns by following gradients.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    🎯 Core concept: All ML training uses this!
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('neural') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🧠</div>
+                <h3>Neural Network Visualizer</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    See how data flows through layers - it's just matrix multiplication!
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    🎯 Deep learning demystified
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('pca') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                <h3>PCA Dimensionality Reduction</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Reduce dimensions while preserving information - eigenvalues in action!
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    🎯 Used in image compression & feature extraction
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- Machine Learning Section -->
+<div style="margin-top: 3rem; margin-bottom: 3rem;">
+    <h2 style="color: var(--accent); margin-bottom: 1rem;">🧠 Machine Learning Applications</h2>
+    <div class="control-panel" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <a href="{{ url_for('feature_space') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                <h3>Feature Space & Classification</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Visualize decision boundaries - how AI separates classes.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(6, 182, 212, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    ⚡ Real classification in action
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('convolution') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🖼️</div>
+                <h3>Convolution Filters</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Apply image filters - the foundation of CNNs and computer vision.
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(6, 182, 212, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    ⚡ How CNNs detect features
+                </div>
+            </div>
+        </a>
+
+        <a href="{{ url_for('ml_model') }}" style="text-decoration: none;">
+            <div class="glass-card" style="transition: transform 0.2s; cursor: pointer; height: 100%;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                <h3>Train ML Model</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Train a real model and watch it learn - see loss decrease in real-time!
+                </p>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(6, 182, 212, 0.1); border-radius: 8px; font-size: 0.85rem;">
+                    ⚡ You're training AI!
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<style>
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
+    }
+</style>
+{% endblock %}

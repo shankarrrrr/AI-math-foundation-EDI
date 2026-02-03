@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="header-title">Convolution Filters</h1>
+    <p class="header-subtitle">Understand CNNs through image filtering - the foundation of computer vision</p>
+</div>
+
+<div class="glass-card" style="background: rgba(139, 92, 246, 0.05); border-left: 4px solid var(--secondary);">
+    <h3>🖼️ Convolutional Neural Networks</h3>
+    <p style="color: var(--text-muted); line-height: 1.6;">
+        CNNs use convolution filters (kernels) to detect features in images. Each filter slides across the image, 
+        performing element-wise multiplication. This is how AI "sees" edges, textures, and patterns!
+    </p>
+</div>
+
+<div class="glass-card">
+    <div class="control-panel" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="input-group">
+            <h3>Sample Image</h3>
+            <select id="imageType" class="input-field">
+                <option value="checkerboard">Checkerboard</option>
+                <option value="circle">Circle</option>
+                <option value="lines">Vertical Lines</option>
+                <option value="gradient">Gradient</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <h3>Filter Type</h3>
+            <select id="kernelType" class="input-field">
+                <option value="edge_detect">Edge Detection</option>
+                <option value="sharpen">Sharpen</option>
+                <option value="blur">Blur</option>
+                <option value="gaussian_blur">Gaussian Blur</option>
+                <option value="emboss">Emboss</option>
+                <option value="sobel_x">Sobel X (Vertical Edges)</option>
+                <option value="sobel_y">Sobel Y (Horizontal Edges)</option>
+                <option value="identity">Identity (No Change)</option>
+            </select>
+        </div>
+
+        <div class="input-group" style="display: flex; align-items: flex-end;">
+            <button class="btn-primary" onclick="applyFilter()" style="width: 100%;">
+                Apply Filter
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Convolution Kernel (3×3)</h3>
+    <div id="kernelDisplay" style="margin-top: 1rem; display: flex; justify-content: center;">
+        <div style="display: grid; grid-template-columns: repeat(3, 60px); gap: 5px;">
+            <!-- Kernel values will be displayed here -->
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h3>Original Image</h3>
+            <canvas id="originalCanvas" width="256" height="256" style="width: 100%; max-width: 400px; border: 1px solid var(--border); border-radius: 8px; margin-top: 1rem;"></canvas>
+        </div>
+        <div>
+            <h3>Filtered Image</h3>
+            <canvas id="filteredCanvas" width="256" height="256" style="width: 100%; max-width: 400px; border: 1px solid var(--border); border-radius: 8px; margin-top: 1rem;"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Understanding Convolution</h3>
+    <div style="margin-top: 1rem; line-height: 1.8; color: var(--text-muted);">
+        <p><strong style="color: var(--text-main);">Kernel/Filter:</strong> A small matrix (usually 3×3 or 5×5) that slides across the image</p>
+        <p><strong style="color: var(--text-main);">Convolution Operation:</strong> Element-wise multiply kernel with image patch, then sum</p>
+        <p><strong style="color: var(--text-main);">Edge Detection:</strong> Highlights areas where pixel values change rapidly</p>
+        <p><strong style="color: var(--text-main);">Blur:</strong> Averages neighboring pixels to smooth the image</p>
+        <p><strong style="color: var(--text-main);">In CNNs:</strong> Networks learn optimal filters automatically during training!</p>
+        <p><strong style="color: var(--text-main);">Deep Networks:</strong> Early layers detect edges, deeper layers detect complex patterns</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/visualizers/convolution.js') }}"></script>
+{% endblock %}

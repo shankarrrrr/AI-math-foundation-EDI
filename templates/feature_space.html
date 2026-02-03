@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header-section">
+    <h1 class="header-title">Feature Space & Decision Boundaries</h1>
+    <p class="header-subtitle">Visualize how classifiers separate data in feature space</p>
+</div>
+
+<div class="glass-card" style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid var(--primary);">
+    <h3>🎯 Classification Visualization</h3>
+    <p style="color: var(--text-muted); line-height: 1.6;">
+        See how machine learning classifiers draw decision boundaries to separate different classes. 
+        This is the foundation of image classification, spam detection, and more!
+    </p>
+</div>
+
+<div class="glass-card">
+    <div class="control-panel" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+        <div class="input-group">
+            <h3>Data Pattern</h3>
+            <select id="pattern" class="input-field">
+                <option value="linear">Linearly Separable</option>
+                <option value="circular">Circular</option>
+                <option value="moons">Interleaving Moons</option>
+                <option value="blobs">Random Blobs</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <h3>Samples per Class</h3>
+            <input type="number" id="nSamples" value="100" min="50" max="300" class="input-field">
+        </div>
+
+        <div class="input-group">
+            <h3>Classifier</h3>
+            <select id="classifier" class="input-field">
+                <option value="logistic">Logistic Regression</option>
+                <option value="svm">SVM (Linear)</option>
+            </select>
+        </div>
+
+        <div class="input-group" style="display: flex; align-items: flex-end;">
+            <button class="btn-primary" onclick="generateAndClassify()" style="width: 100%;">
+                Generate & Classify
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Feature Space Visualization</h3>
+    <div id="featurePlot" class="viz-container" style="height: 600px;"></div>
+</div>
+
+<div class="glass-card">
+    <h3>Classification Results</h3>
+    <div id="classResults" style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div style="padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Accuracy</div>
+            <div id="accuracy" style="font-size: 1.5rem; color: var(--primary); margin-top: 0.5rem;">-</div>
+        </div>
+        <div style="padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Misclassified</div>
+            <div id="misclassified" style="font-size: 1.5rem; color: var(--primary); margin-top: 0.5rem;">-</div>
+        </div>
+        <div style="padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+            <div style="color: var(--text-muted); font-size: 0.9rem;">Total Samples</div>
+            <div id="totalSamples" style="font-size: 1.5rem; color: var(--primary); margin-top: 0.5rem;">-</div>
+        </div>
+    </div>
+</div>
+
+<div class="glass-card">
+    <h3>Understanding Classification</h3>
+    <div style="margin-top: 1rem; line-height: 1.8; color: var(--text-muted);">
+        <p><strong style="color: var(--text-main);">Feature Space:</strong> Each point represents a data sample with 2 features (x, y coordinates)</p>
+        <p><strong style="color: var(--text-main);">Decision Boundary:</strong> The line/curve that separates different classes</p>
+        <p><strong style="color: var(--text-main);">Logistic Regression:</strong> Finds a linear boundary (straight line)</p>
+        <p><strong style="color: var(--text-main);">SVM:</strong> Finds the boundary with maximum margin between classes</p>
+        <p><strong style="color: var(--text-main);">Real Applications:</strong> Email spam detection, image classification, medical diagnosis</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/visualizers/feature.js') }}"></script>
+{% endblock %}
