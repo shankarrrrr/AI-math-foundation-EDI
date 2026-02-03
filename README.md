@@ -16,15 +16,28 @@ An interactive web-based platform that bridges the gap between mathematical theo
 
 ## 📸 Screenshots
 
+### Dashboard - All 11 Interactive Modules
 <div align="center">
-  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="800"/>
-  <p><em>Interactive Dashboard with 11 Modules</em></p>
+  <img src="docs/screenshots/dashboard.png" alt="AI Math Foundations Dashboard" width="800"/>
+  <p><em>Main dashboard showing Linear Algebra, AI Foundations, and Machine Learning sections</em></p>
 </div>
 
+### AI Foundations Modules
 <div align="center">
-  <img src="docs/screenshots/gradient-descent.png" alt="Gradient Descent" width="400"/>
-  <img src="docs/screenshots/neural-network.png" alt="Neural Network" width="400"/>
-  <p><em>Gradient Descent Animation & Neural Network Visualizer</em></p>
+  <img src="docs/screenshots/ai-foundations.png" alt="AI Foundations" width="800"/>
+  <p><em>Gradient Descent, Neural Networks, and PCA modules</em></p>
+</div>
+
+### Neural Network Visualizer
+<div align="center">
+  <img src="docs/screenshots/neural-network.png" alt="Neural Network" width="800"/>
+  <p><em>Interactive neural network with 2→3→1 architecture showing forward pass</em></p>
+</div>
+
+### Feature Space & Decision Boundaries
+<div align="center">
+  <img src="docs/screenshots/feature-space.png" alt="Feature Space Classification" width="800"/>
+  <p><em>Real-time classification with decision boundary visualization</em></p>
 </div>
 
 ## ⭐ Star This Repository
