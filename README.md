@@ -9,14 +9,11 @@
 
 An interactive web-based platform that bridges the gap between mathematical theory and practical AI applications. Built with Flask, NumPy, and scikit-learn, this comprehensive learning platform provides real-time visualization and computation of fundamental mathematical operations used in artificial intelligence and machine learning.
 
-## 🎥 Demo
 
-🔗 **Live Demo:** [Coming Soon]  
-📹 **Video Walkthrough:** [Coming Soon]
 
 ## 📸 Screenshots
 
-### Dashboard - All 11 Interactive Modules
+### Dashboard - some Interactive Modules
 <div align="center">
   <img src="docs/screenshots/dashboard.png" alt="AI Math Foundations Dashboard" width="800"/>
   <p><em>Main dashboard showing Linear Algebra, AI Foundations, and Machine Learning sections</em></p>
