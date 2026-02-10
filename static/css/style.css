@@ -22,8 +22,8 @@ body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
-    overflow: hidden;
-    /* App-like feel */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll only */
 }
 
 .app-container {
