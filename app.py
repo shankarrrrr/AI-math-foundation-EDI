@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 from math_engine.vector_logic import calculate_vector_properties
 from math_engine.matrix_logic import matrix_operations
 from math_engine.transform_logic import apply_transform
@@ -10,8 +11,25 @@ from math_engine.pca_logic import perform_pca, generate_sample_data as pca_gener
 from math_engine.feature_logic import generate_classification_data, train_classifier
 from math_engine.convolution_logic import apply_convolution, generate_sample_image, get_predefined_kernels
 from math_engine.ml_model_logic import generate_sample_dataset, train_linear_regression, train_with_iterations
+from chatbot import create_chat_routes
+from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
+
+# Production configuration
+if os.environ.get('ENVIRONMENT') == 'production':
+    app.config['DEBUG'] = False
+else:
+    app.config['DEBUG'] = True
+
+# Add chatbot routes
+create_chat_routes(app)
 
 # --- Routes ---
 
@@ -227,6 +245,20 @@ def api_train_iterative():
     result = train_with_iterations(X, y, n_iterations)
     return jsonify(result)
 
+# Health check endpoint
+@app.route('/health')
+def health():
+    return jsonify({"status": "healthy", "timestamp": datetime.now().isoformat()})
+
+# Error handlers
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({"error": "Not found"}), 404
+
+@app.errorhandler(500)
+def server_error(e):
+    return jsonify({"error": "Internal server error"}), 500
+
 if __name__ == '__main__':
     print("="*50)
     print("  MathAI Visualizer Server Starting...")
@@ -264,4 +296,5 @@ if __name__ == '__main__':
         print("  ! Continuing with local access only.")
 
     print("="*50)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)

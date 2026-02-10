@@ -24,51 +24,69 @@
 <body>
     <div class="app-container">
         <nav class="sidebar">
+            <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle Sidebar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            
             <div class="logo">
                 <h2>MathAI<span class="dot">.</span></h2>
             </div>
             <ul class="nav-links">
-                <li><a href="{{ url_for('index') }}" class="nav-item {% if request.endpoint == 'index' %}active{% endif %}">
-                    <span class="icon">🏠</span> Dashboard
+                <li><a href="{{ url_for('index') }}" class="nav-item {% if request.endpoint == 'index' %}active{% endif %}" data-tooltip="Dashboard">
+                    <span class="icon">🏠</span>
+                    <span class="nav-item-text">Dashboard</span>
                 </a></li>
                 
                 <li class="nav-section">📐 Linear Algebra</li>
-                <li><a href="{{ url_for('vectors') }}" class="nav-item {% if request.endpoint == 'vectors' %}active{% endif %}">
-                    <span class="icon">↗️</span> Vectors
+                <li><a href="{{ url_for('vectors') }}" class="nav-item {% if request.endpoint == 'vectors' %}active{% endif %}" data-tooltip="Vectors">
+                    <span class="icon">↗️</span>
+                    <span class="nav-item-text">Vectors</span>
                 </a></li>
-                <li><a href="{{ url_for('matrices') }}" class="nav-item {% if request.endpoint == 'matrices' %}active{% endif %}">
-                    <span class="icon">▦</span> Matrices
+                <li><a href="{{ url_for('matrices') }}" class="nav-item {% if request.endpoint == 'matrices' %}active{% endif %}" data-tooltip="Matrices">
+                    <span class="icon">▦</span>
+                    <span class="nav-item-text">Matrices</span>
                 </a></li>
-                <li><a href="{{ url_for('transformations') }}" class="nav-item {% if request.endpoint == 'transformations' %}active{% endif %}">
-                    <span class="icon">🔄</span> Transformations
+                <li><a href="{{ url_for('transformations') }}" class="nav-item {% if request.endpoint == 'transformations' %}active{% endif %}" data-tooltip="Transformations">
+                    <span class="icon">🔄</span>
+                    <span class="nav-item-text">Transformations</span>
                 </a></li>
-                <li><a href="{{ url_for('systems') }}" class="nav-item {% if request.endpoint == 'systems' %}active{% endif %}">
-                    <span class="icon">🟰</span> Systems
+                <li><a href="{{ url_for('systems') }}" class="nav-item {% if request.endpoint == 'systems' %}active{% endif %}" data-tooltip="Systems">
+                    <span class="icon">🟰</span>
+                    <span class="nav-item-text">Systems</span>
                 </a></li>
-                <li><a href="{{ url_for('eigen') }}" class="nav-item {% if request.endpoint == 'eigen' %}active{% endif %}">
-                    <span class="icon">🌀</span> Eigenvalues
+                <li><a href="{{ url_for('eigen') }}" class="nav-item {% if request.endpoint == 'eigen' %}active{% endif %}" data-tooltip="Eigenvalues">
+                    <span class="icon">🌀</span>
+                    <span class="nav-item-text">Eigenvalues</span>
                 </a></li>
                 
                 <li class="nav-section">🤖 AI Foundations</li>
-                <li><a href="{{ url_for('gradient') }}" class="nav-item {% if request.endpoint == 'gradient' %}active{% endif %}">
-                    <span class="icon">📉</span> Gradient Descent
+                <li><a href="{{ url_for('gradient') }}" class="nav-item {% if request.endpoint == 'gradient' %}active{% endif %}" data-tooltip="Gradient Descent">
+                    <span class="icon">📉</span>
+                    <span class="nav-item-text">Gradient Descent</span>
                 </a></li>
-                <li><a href="{{ url_for('neural') }}" class="nav-item {% if request.endpoint == 'neural' %}active{% endif %}">
-                    <span class="icon">🧠</span> Neural Networks
+                <li><a href="{{ url_for('neural') }}" class="nav-item {% if request.endpoint == 'neural' %}active{% endif %}" data-tooltip="Neural Networks">
+                    <span class="icon">🧠</span>
+                    <span class="nav-item-text">Neural Networks</span>
                 </a></li>
-                <li><a href="{{ url_for('pca') }}" class="nav-item {% if request.endpoint == 'pca' %}active{% endif %}">
-                    <span class="icon">📊</span> PCA
+                <li><a href="{{ url_for('pca') }}" class="nav-item {% if request.endpoint == 'pca' %}active{% endif %}" data-tooltip="PCA">
+                    <span class="icon">📊</span>
+                    <span class="nav-item-text">PCA</span>
                 </a></li>
                 
                 <li class="nav-section">🧠 Machine Learning</li>
-                <li><a href="{{ url_for('feature_space') }}" class="nav-item {% if request.endpoint == 'feature_space' %}active{% endif %}">
-                    <span class="icon">🎯</span> Feature Space
+                <li><a href="{{ url_for('feature_space') }}" class="nav-item {% if request.endpoint == 'feature_space' %}active{% endif %}" data-tooltip="Feature Space">
+                    <span class="icon">🎯</span>
+                    <span class="nav-item-text">Feature Space</span>
                 </a></li>
-                <li><a href="{{ url_for('convolution') }}" class="nav-item {% if request.endpoint == 'convolution' %}active{% endif %}">
-                    <span class="icon">🖼️</span> Convolution
+                <li><a href="{{ url_for('convolution') }}" class="nav-item {% if request.endpoint == 'convolution' %}active{% endif %}" data-tooltip="Convolution">
+                    <span class="icon">🖼️</span>
+                    <span class="nav-item-text">Convolution</span>
                 </a></li>
-                <li><a href="{{ url_for('ml_model') }}" class="nav-item {% if request.endpoint == 'ml_model' %}active{% endif %}">
-                    <span class="icon">⚡</span> Train Model
+                <li><a href="{{ url_for('ml_model') }}" class="nav-item {% if request.endpoint == 'ml_model' %}active{% endif %}" data-tooltip="Train Model">
+                    <span class="icon">⚡</span>
+                    <span class="nav-item-text">Train Model</span>
                 </a></li>
             </ul>
         </nav>
@@ -79,6 +97,8 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}" defer></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

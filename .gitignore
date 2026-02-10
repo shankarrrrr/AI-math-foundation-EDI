@@ -54,3 +54,14 @@ cloudflared.exe.exe
 # Temporary files
 *.tmp
 *.bak
+
+# Docker
+.dockerignore
+
+# Google Cloud
+.gcloudignore
+
+# Local environment
+.env
+.env.local
+.env.*.local

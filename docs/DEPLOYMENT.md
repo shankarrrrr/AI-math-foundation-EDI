@@ -1,230 +1,307 @@
-# Deployment Guide
+# Google Cloud Free Tier Deployment Guide
 
-This guide covers deploying your AI Math Foundations platform to various hosting services.
+## Prerequisites
 
-## 🚀 Deployment Options
+1. **Google Cloud account** (free tier - $300 credit for new users)
+2. **Groq API key** (100% free - get from https://console.groq.com)
 
-### Option 1: Render (Recommended - Free Tier Available)
+## Setup Steps
 
-1. **Create a Render account:** https://render.com
+### 1. Install Google Cloud SDK
 
-2. **Create a new Web Service:**
-   - Connect your GitHub repository
-   - Select "Python" environment
-   - Build command: `pip install -r requirements.txt`
-   - Start command: `gunicorn app:app`
+Download and install from: https://cloud.google.com/sdk/docs/install
 
-3. **Environment Variables:**
-   - No special variables needed for basic deployment
+For Windows:
+```bash
+# Download the installer from the link above and run it
+# Or use PowerShell:
+(New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
+& $env:Temp\GoogleCloudSDKInstaller.exe
+```
 
-4. **Deploy:**
-   - Click "Create Web Service"
-   - Wait for deployment (2-3 minutes)
-   - Access your public URL!
+### 2. Login to Google Cloud
 
-**Pros:** Free tier, automatic HTTPS, easy setup  
-**Cons:** Cold starts on free tier
+```bash
+gcloud auth login
+gcloud config set project YOUR_PROJECT_ID
+```
 
----
+### 3. Enable Required APIs
 
-### Option 2: Railway
+```bash
+gcloud services enable run.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+```
 
-1. **Create a Railway account:** https://railway.app
+### 4. Get Your Groq API Key
 
-2. **Deploy from GitHub:**
-   - Click "New Project"
-   - Select "Deploy from GitHub repo"
-   - Choose your repository
+1. Visit https://console.groq.com
+2. Sign up for a free account (no credit card required)
+3. Navigate to API Keys section
+4. Create a new API key
+5. Copy the key
 
-3. **Configuration:**
-   - Railway auto-detects Python
-   - No additional configuration needed
+### 5. Set Environment Variables
 
-4. **Access:**
-   - Get your public URL from dashboard
+**On Windows (PowerShell):**
+```powershell
+$env:GROQ_API_KEY="your-groq-api-key-here"
+```
 
-**Pros:** Fast deployment, generous free tier  
-**Cons:** Requires credit card for free tier
+**On Windows (CMD):**
+```cmd
+set GROQ_API_KEY=your-groq-api-key-here
+```
 
----
+**On Linux/Mac:**
+```bash
+export GROQ_API_KEY="your-groq-api-key-here"
+```
 
-### Option 3: Heroku
+### 6. Update deploy.sh
 
-1. **Create a Heroku account:** https://heroku.com
+Edit `deploy.sh` and change:
+```bash
+PROJECT_ID="your-project-id"  # Change to your actual GCP project ID
+```
 
-2. **Install Heroku CLI:**
+### 7. Deploy
+
+**On Windows (PowerShell):**
+```powershell
+# Make the script executable (if using Git Bash or WSL)
+# Or run the gcloud command directly:
+gcloud run deploy ai-math-platform `
+  --source . `
+  --platform managed `
+  --region us-central1 `
+  --allow-unauthenticated `
+  --memory 512Mi `
+  --cpu 1 `
+  --min-instances 0 `
+  --max-instances 3 `
+  --timeout 300 `
+  --set-env-vars ENVIRONMENT=production `
+  --set-env-vars GROQ_API_KEY=$env:GROQ_API_KEY
+```
+
+**On Linux/Mac:**
+```bash
+chmod +x deploy.sh
+./deploy.sh
+```
+
+## Free Tier Limits
+
+### Google Cloud Run (Always Free Tier)
+- **2 million requests/month**
+- **360,000 GB-seconds of compute time**
+- **180,000 vCPU-seconds**
+- **1 GB network egress per month**
+
+### Groq API (Free Tier)
+- **Generous rate limits**
+- **Fast inference (500+ tokens/sec)**
+- **Multiple model options**
+- **No credit card required**
+
+**This is MORE than enough for educational use!**
+
+## Cost Monitoring
+
+1. **Set up billing alerts** in GCP Console:
+   - Go to Billing → Budgets & alerts
+   - Create a budget with alerts at 50%, 90%, 100%
+
+2. **Monitor usage** in Cloud Console:
+   - Cloud Run → Your service → Metrics
+   - Check request count, CPU, and memory usage
+
+3. **Expected cost**: **$0/month** (within free tier)
+
+## Local Testing
+
+Before deploying, test locally:
+
+### 1. Create .env file
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and add your Groq API key:
+```
+GROQ_API_KEY=your_actual_key_here
+ENVIRONMENT=development
+PORT=5000
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run locally
+
+```bash
+python app.py
+```
+
+Visit http://localhost:5000
+
+### 4. Test the chatbot
+
+1. Click the AI chatbot button (bottom right)
+2. Ask a question like "Explain gradient descent"
+3. Verify you get a response
+
+## Updating the App
+
+Simply run the deployment command again:
+
+```bash
+./deploy.sh
+```
+
+Or on Windows:
+```powershell
+gcloud run deploy ai-math-platform --source . --region us-central1
+```
+
+Cloud Run will automatically:
+- Build a new container
+- Deploy with zero downtime
+- Route traffic to the new version
+
+## Troubleshooting
+
+### Error: "API key not found"
+
+Make sure you set the environment variable:
+```bash
+echo $GROQ_API_KEY  # Should show your key
+```
+
+### Error: "Permission denied"
+
+Run:
+```bash
+gcloud auth login
+gcloud auth application-default login
+```
+
+### Error: "Service not found"
+
+Make sure you enabled the APIs:
+```bash
+gcloud services enable run.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+```
+
+### Chatbot not responding
+
+1. Check browser console for errors (F12)
+2. Verify GROQ_API_KEY is set in Cloud Run:
    ```bash
-   # Download from https://devcli.heroku.com/
+   gcloud run services describe ai-math-platform --region us-central1
    ```
-
-3. **Create Procfile:**
-   ```
-   web: gunicorn app:app
-   ```
-
-4. **Deploy:**
+3. Check Cloud Run logs:
    ```bash
-   heroku login
-   heroku create your-app-name
-   git push heroku main
+   gcloud run logs read --service ai-math-platform --region us-central1
    ```
 
-**Pros:** Mature platform, good documentation  
-**Cons:** No free tier anymore
+## Custom Domain (Optional)
 
----
+To use your own domain:
 
-### Option 4: PythonAnywhere
-
-1. **Create account:** https://www.pythonanywhere.com
-
-2. **Upload code:**
-   - Use Git or upload files
-   - Install requirements in virtual environment
-
-3. **Configure WSGI:**
-   - Point to your Flask app
-   - Set working directory
-
-4. **Reload:**
-   - Reload web app
-   - Access your subdomain
-
-**Pros:** Python-focused, easy for beginners  
-**Cons:** Limited free tier
-
----
-
-### Option 5: Vercel (with Serverless)
-
-1. **Install Vercel CLI:**
+1. **Verify domain ownership** in Google Search Console
+2. **Map domain** in Cloud Run:
    ```bash
-   npm install -g vercel
+   gcloud run domain-mappings create --service ai-math-platform --domain yourdomain.com --region us-central1
    ```
+3. **Update DNS** records as instructed by GCP
 
-2. **Create vercel.json:**
-   ```json
-   {
-     "builds": [
-       {
-         "src": "app.py",
-         "use": "@vercel/python"
-       }
-     ],
-     "routes": [
-       {
-         "src": "/(.*)",
-         "dest": "app.py"
-       }
-     ]
-   }
-   ```
+## Security Best Practices
 
-3. **Deploy:**
-   ```bash
-   vercel
-   ```
+1. **Never commit .env file** (already in .gitignore)
+2. **Rotate API keys** periodically
+3. **Monitor usage** for unusual activity
+4. **Set up billing alerts** to avoid surprises
+5. **Use environment variables** for all secrets
 
-**Pros:** Fast, global CDN  
-**Cons:** Serverless limitations
+## Performance Optimization
 
----
+### Current Configuration
+- **Memory**: 512Mi (sufficient for the app)
+- **CPU**: 1 (adequate for educational use)
+- **Min instances**: 0 (scales to zero when not in use)
+- **Max instances**: 3 (prevents runaway costs)
 
-## 🔧 Pre-Deployment Checklist
+### If you need more performance:
+```bash
+gcloud run services update ai-math-platform \
+  --memory 1Gi \
+  --cpu 2 \
+  --region us-central1
+```
 
-- [ ] Test locally: `python app.py`
-- [ ] All dependencies in requirements.txt
-- [ ] Remove debug mode in production
-- [ ] Set proper environment variables
-- [ ] Test all modules work
-- [ ] Check mobile responsiveness
-- [ ] Verify API endpoints
-- [ ] Test with different browsers
+## Monitoring
 
----
+View real-time metrics:
+```bash
+gcloud run services describe ai-math-platform --region us-central1
+```
 
-## 🌐 Custom Domain (Optional)
+View logs:
+```bash
+gcloud run logs tail --service ai-math-platform --region us-central1
+```
 
-### For Render:
-1. Go to Settings → Custom Domains
-2. Add your domain
-3. Update DNS records as instructed
+## Maintenance
 
-### For Railway:
-1. Go to Settings → Domains
-2. Add custom domain
-3. Configure DNS
+### Weekly
+- Check Groq API usage at https://console.groq.com
+- Monitor Cloud Run metrics in GCP Console
 
----
+### Monthly
+- Review error logs
+- Update dependencies if needed:
+  ```bash
+  pip list --outdated
+  ```
 
-## 📊 Monitoring
+### As Needed
+- Add new module knowledge to `chatbot.py`
+- Improve chatbot responses based on user feedback
+- Update system prompts for better AI responses
 
-### Free Monitoring Tools:
-- **UptimeRobot** - Monitor uptime
-- **Google Analytics** - Track usage
-- **Sentry** - Error tracking
+## Success Criteria
 
----
+✅ Chatbot fully functional on all pages  
+✅ Free tier deployment successful  
+✅ Total cost: $0/month  
+✅ Response time < 2 seconds  
+✅ Mobile-friendly interface  
+✅ Professional appearance  
+✅ Ready for users/research paper  
 
-## 🔒 Security Considerations
+## Support
 
-1. **Environment Variables:**
-   - Never commit secrets to Git
-   - Use platform's environment variable system
+- **Google Cloud**: https://cloud.google.com/support
+- **Groq**: https://console.groq.com/docs
+- **Flask**: https://flask.palletsprojects.com/
 
-2. **HTTPS:**
-   - Most platforms provide free HTTPS
-   - Always use HTTPS in production
+## Next Steps
 
-3. **Rate Limiting:**
-   - Consider adding rate limiting for APIs
-   - Use Flask-Limiter if needed
+After successful deployment:
 
----
-
-## 💡 Performance Tips
-
-1. **Enable Caching:**
-   - Cache static assets
-   - Use CDN for libraries
-
-2. **Optimize Images:**
-   - Compress screenshots
-   - Use appropriate formats
-
-3. **Minimize Dependencies:**
-   - Only include necessary packages
-   - Keep requirements.txt clean
+1. **Share the URL** with users
+2. **Gather feedback** on chatbot responses
+3. **Monitor usage** patterns
+4. **Iterate** on prompts and features
+5. **Document** user interactions for research
 
 ---
 
-## 🐛 Troubleshooting
-
-### Common Issues:
-
-**Issue:** Application won't start
-- Check logs for errors
-- Verify all dependencies installed
-- Check Python version compatibility
-
-**Issue:** Static files not loading
-- Verify static folder structure
-- Check file paths in templates
-- Ensure proper MIME types
-
-**Issue:** Slow performance
-- Check cold start times
-- Optimize heavy computations
-- Consider caching
-
----
-
-## 📞 Need Help?
-
-- Check platform documentation
-- Open an issue on GitHub
-- Ask in community forums
-
----
-
-**Ready to deploy? Choose a platform and follow the steps above!** 🚀
+**Congratulations!** Your AI Math Platform is now live and accessible worldwide! 🎉
