@@ -28,7 +28,7 @@ body {
 
 .app-container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* Sidebar */
@@ -40,6 +40,10 @@ body {
     display: flex;
     flex-direction: column;
     backdrop-filter: blur(10px);
+    overflow-y: auto;
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
 }
 
 .logo h2 {
